@@ -121,7 +121,6 @@ section.dark .time .time-colon .text {
   margin-top: 20px;
   text-align: center;
 }
-.weather .location,
 .weather .temp,
 .weather .description {
   font-size: 20px;
@@ -129,6 +128,33 @@ section.dark .time .time-colon .text {
 }
 .weather .temp {
   margin-top: 10px;
-  font-size: 28px;
+  position: relative;
+  left: 180px;
+  font-size: 20px;
   font-weight: 700;
 }
+.weather .description {
+  position: relative;
+  top: 20px;
+  left: 140px;
+  font-size: 16px;
+  font-weight: 400;
+}
+section.dark .container .weather .temp,
+section.dark .container .weather .description {
+  color: #fff;
+}
+.clock.dark .date {
+  color: #fff;
+}
+.date{
+  position: relative;
+  top: 20px;
+  font-weight: 700;
+  left: 154px;
+}
+
+
+
+
+

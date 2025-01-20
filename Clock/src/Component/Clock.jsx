@@ -2,13 +2,20 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/Clock.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+const apiKey = 'fd643dbdf3446ce23b7cb0e4978de675'; // Replace with your actual API key
+const city = 'Chennai'; // Replace with your desired city
+
 const Clock = () => {
   const [time, setTime] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [weather, setWeather] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const timerId = setInterval(() => setTime(new Date()), 1000);
+    const timerId = setInterval(() => {
+      setTime(new Date());
+      setDate(new Date());
+    }, 1000);
     fetchWeather();
     return () => clearInterval(timerId);
   }, []);
@@ -16,7 +23,7 @@ const Clock = () => {
   const fetchWeather = async () => {
     try {
       const response = await fetch(
-        `https://openweathermap.org/api/one-call-3`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
       );
       const data = await response.json();
       console.log(data); // Log weather data to ensure the API call is working
@@ -39,6 +46,10 @@ const Clock = () => {
   const formattedHour = displayHour < 10 ? `0${displayHour}` : displayHour;
   const formattedMin = min < 10 ? `0${min}` : min;
   const formattedSec = sec < 10 ? `0${sec}` : sec;
+
+  const day = date.getDate() +"-";
+  const month = date.getMonth() + 1 +"-"; // Months are zero-based
+  const year = date.getFullYear();
 
   return (
     <section className={`clock ${isDarkMode ? 'dark' : ''}`}>
@@ -69,9 +80,15 @@ const Clock = () => {
             <span className="am_pm">{d}</span>
           </div>
         </div>
+        <div className="date">
+          <span className="day">{day}</span>
+          <span className="month">{month}</span>
+          <span className="year">{year}</span>
+        </div>
+        
         {weather && (
           <div className="weather">
-            <span className="location">{weather.name}</span>
+            {/* <span className="location">{weather.name}</span> */}
             <span className="temp">{weather.main.temp}°C</span>
             <span className="description">{weather.weather[0].description}</span>
           </div>
